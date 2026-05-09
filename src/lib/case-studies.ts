@@ -155,6 +155,76 @@ export const caseStudies: CaseStudy[] = [
     pullQuote:
       "Every dish on that menu was tested at a farmers market first. By the time we opened, we already knew what Apex wanted.",
   },
+
+  {
+    slug: "tandoori-trail-smithfield",
+    name: "Tandoori Trail",
+    location: "Smithfield",
+    state: "NC",
+    period: "2023 – 2026",
+    covers: "50 covers",
+    tagline: "Bringing Indian food to where the burger and sweet tea used to be.",
+    summary:
+      "Tandoori Trail Smithfield was the hardest market of the three — a small Southern county seat where Indian food was entirely unfamiliar, the lunch crowd was price-sensitive, and hiring staff in a small town was a daily challenge. In three years it not only survived but built genuine loyalty: lunchtime regulars from the Johnston County Courthouse and state offices, packed tables at the Smithfield Downtown Wine Walk, and a crowd at the Ham and Yam Festival that came back year after year.",
+
+    challenge: {
+      heading: "Introducing Indian food to a town that runs on burgers and sweet tea",
+      body: "Smithfield is Johnston County's seat — a small, very Southern town where the dining culture runs to comfort food, and where the lunch crowd at the Courthouse and state offices has a fixed budget and limited time. There was no existing Indian food audience to build on. Staff were hard to find and harder to retain in a small labour market. And every price point decision had to account for a guest who was genuinely uncertain whether they wanted to try the food at all.",
+    },
+
+    approach: {
+      heading: "Meet the town where it is, then bring it somewhere new",
+      body: "Karuna's approach in Smithfield was deliberate cultural bridge-building. The menu led with formats that Smithfield already understood — wraps, sandwiches, and sizzler platters — but built entirely around Indian flavour. The Tandoori Chicken Sandwich used the same structure as a Southern chicken sandwich but came off the tandoor with yogurt marinade and mint chutney. The sizzler plates — served on a cast-iron hot plate with makhani gravy and buttered vegetables — gave the lunch crowd a familiar interactive experience with unfamiliar spicing. The $15 lunch buffet was calibrated specifically for the Courthouse crowd: fast, familiar enough to return to, and a gentle introduction to the wider menu. Participating in the Smithfield Downtown Wine Walk twice a year brought a different audience — local residents looking for an evening out — and the Ham and Yam Festival, Johnston County's signature annual event, gave the restaurant visibility with the whole county at once.",
+    },
+
+    result: {
+      heading: "Three years, a Courthouse following, and a town that learned to love Indian food",
+      body: "In three years, Tandoori Trail Smithfield made Indian food a normal part of Smithfield's dining week. The Johnston County Courthouse and surrounding state offices became reliable lunchtime regulars — the highest possible validation for a price-sensitive lunch programme. The Smithfield Downtown Wine Walk became one of the restaurant's best evenings twice a year. The Ham and Yam Festival delivered county-wide exposure annually. The restaurant closed in 2026, but the proof it left behind — that Indian food can find a loyal audience in a small Southern town with no prior exposure — is among the most transferable lessons in Karuna's consulting practice.",
+    },
+
+    highlights: [
+      { label: "Open", value: "2023 – 2026" },
+      { label: "Covers", value: "50" },
+      { label: "Location", value: "Smithfield, NC" },
+      { label: "Market", value: "Johnston County courthouse crowd" },
+      { label: "Festival", value: "Ham & Yam + Wine Walk" },
+      { label: "Lunch", value: "$15 buffet programme" },
+    ],
+
+    signatures: [
+      {
+        dish: "Tandoori Chicken Sandwich",
+        description:
+          "Tandoor-roasted chicken, mint chutney, hamburger bun — the restaurant's most effective cultural bridge. Familiar format, completely Indian execution. The dish that converted more first-time guests than anything else on the menu.",
+      },
+      {
+        dish: "Indian Flavoured Sizzlers",
+        description:
+          "Served on a cast-iron hot plate with herbed rice, makhani gravy, house chutney, and buttered vegetables. The sizzler format gave Smithfield guests a tactile, interactive experience while introducing them to tandoor cooking and Indian spicing.",
+      },
+      {
+        dish: "Chicken Tikka Wrap & Lamb Boti Wrap",
+        description:
+          "The wraps programme — grilled proteins, mint mayo, bell peppers — became the backbone of the lunch trade. Portable, familiar, and deeply spiced. Hot favourites with the Courthouse crowd.",
+      },
+      {
+        dish: "$15 Everyday Lunch Buffet",
+        description:
+          "Two appetisers, two entrées, basmati rice, butter naan, raita, papad, chutney, and dessert. Priced and paced for a Johnston County lunch break. The most important decision Karuna made for this location.",
+      },
+    ],
+
+    community: [
+      "Smithfield Downtown Wine Walk — twice-yearly participant, always a full house",
+      "Ham and Yam Festival — Johnston County's signature annual event",
+      "Regular lunchtime service to Johnston County Courthouse and state offices",
+      "First Indian restaurant to build a sustained audience in Smithfield",
+      "Three-year run in a market where no Indian restaurant had previously survived",
+    ],
+
+    pullQuote:
+      "The Courthouse crowd didn't know they wanted Indian food. Three months in, they were ordering by dish name.",
+  },
 ];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
