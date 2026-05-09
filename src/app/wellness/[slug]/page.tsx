@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getWellnessPost, wellnessPosts, categoryLabels } from "@/lib/wellness";
+import { PortableText } from "@portabletext/react";
+import {
+  getWellnessPost,
+  getAllWellnessPosts,
+  getAllWellnessSlugs,
+} from "@/lib/sanity";
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return wellnessPosts.map((p) => ({ slug: p.slug }));
+  const slugs = await getAllWellnessSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -13,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getWellnessPost(slug);
+  const post = await getWellnessPost(slug);
   if (!post) return {};
   return {
     title: `${post.title} — The Mindful Table`,
@@ -21,16 +29,42 @@ export async function generateMetadata({
   };
 }
 
+const categoryLabels: Record<string, string> = {
+  routine: "Daily Routine",
+  ingredient: "Ingredients",
+  grain: "Back to Basics",
+  practice: "Practice",
+};
+
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: { children?: React.ReactNode }) => (
+      <p className="font-body text-base text-muted-foreground leading-[1.85] mb-8">
+        {children}
+      </p>
+    ),
+    h2: ({ children }: { children?: React.ReactNode }) => (
+      <h2 className="font-heading text-2xl md:text-3xl mb-4 mt-12 first:mt-0">
+        {children}
+      </h2>
+    ),
+  },
+};
+
 export default async function WellnessPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getWellnessPost(slug);
+  const [post, allPosts] = await Promise.all([
+    getWellnessPost(slug),
+    getAllWellnessPosts(),
+  ]);
+
   if (!post) notFound();
 
-  const others = wellnessPosts.filter((p) => p.slug !== post.slug);
+  const others = allPosts.filter((p) => p.slug.current !== slug).slice(0, 2);
 
   return (
     <div className="pt-16">
@@ -44,7 +78,7 @@ export default async function WellnessPostPage({
         </Link>
         <div className="flex items-center gap-4 mb-6">
           <span className="font-body text-xs tracking-widest uppercase text-primary">
-            {categoryLabels[post.category]}
+            {categoryLabels[post.category] ?? post.category}
           </span>
           <span className="text-border">·</span>
           <span className="font-body text-xs text-muted-foreground">
@@ -64,68 +98,56 @@ export default async function WellnessPostPage({
       {/* Body */}
       <section className="px-6 max-w-6xl mx-auto py-16">
         <div className="max-w-2xl">
-          {post.body.map((section, i) => (
-            <div key={i} className="mb-10">
-              {section.heading && (
-                <h2 className="font-heading text-2xl md:text-3xl mb-4">
-                  {section.heading}
-                </h2>
-              )}
-              <p className="font-body text-base text-muted-foreground leading-[1.85]">
-                {section.text}
-              </p>
-            </div>
-          ))}
+          <PortableText value={post.body} components={portableTextComponents} />
         </div>
 
         {/* Author */}
-        <div className="max-w-2xl mt-16 pt-10 border-t border-border flex items-start gap-6">
-          <div>
-            <p className="font-body text-xs tracking-widest uppercase text-primary mb-1">
-              Written by
-            </p>
-            <p className="font-heading text-xl">Karuna Kumar</p>
-            <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">
-              Chef, operator, and founder of Delhi Darling Table. Based in the
-              San Francisco Bay Area.
-            </p>
-          </div>
+        <div className="max-w-2xl mt-16 pt-10 border-t border-border">
+          <p className="font-body text-xs tracking-widest uppercase text-primary mb-1">
+            Written by
+          </p>
+          <p className="font-heading text-xl">Karuna Kumar</p>
+          <p className="font-body text-sm text-muted-foreground mt-1 leading-relaxed">
+            Chef, operator, and founder of Delhi Darling Table. Based in the
+            San Francisco Bay Area.
+          </p>
         </div>
       </section>
 
-      <div className="diamond-separator py-8" />
-
-      {/* More from The Mindful Table */}
+      {/* More posts */}
       {others.length > 0 && (
-        <section className="px-6 max-w-6xl mx-auto py-16">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-4">
-            More from The Mindful Table
-          </p>
-          <div className="space-y-px bg-border">
-            {others.map((other) => (
-              <Link
-                key={other.slug}
-                href={`/wellness/${other.slug}`}
-                className="group bg-background p-8 flex flex-col md:flex-row md:items-center gap-4 hover:bg-secondary transition-colors block"
-              >
-                <div className="md:flex-1">
-                  <span className="font-body text-xs tracking-widest uppercase text-primary">
-                    {categoryLabels[other.category]}
+        <>
+          <div className="diamond-separator py-8" />
+          <section className="px-6 max-w-6xl mx-auto py-16">
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-4">
+              More from The Mindful Table
+            </p>
+            <div className="space-y-px bg-border">
+              {others.map((other) => (
+                <Link
+                  key={other._id}
+                  href={`/wellness/${other.slug.current}`}
+                  className="group bg-background p-8 flex flex-col md:flex-row md:items-center gap-4 hover:bg-secondary transition-colors block"
+                >
+                  <div className="md:flex-1">
+                    <span className="font-body text-xs tracking-widest uppercase text-primary">
+                      {categoryLabels[other.category] ?? other.category}
+                    </span>
+                    <h3 className="font-heading text-2xl mt-2 group-hover:text-primary transition-colors">
+                      {other.title}
+                    </h3>
+                    <p className="font-heading italic text-muted-foreground mt-1">
+                      {other.subtitle}
+                    </p>
+                  </div>
+                  <span className="font-body text-xs tracking-widest uppercase text-primary shrink-0">
+                    Read →
                   </span>
-                  <h3 className="font-heading text-2xl mt-2 group-hover:text-primary transition-colors">
-                    {other.title}
-                  </h3>
-                  <p className="font-heading italic text-muted-foreground mt-1">
-                    {other.subtitle}
-                  </p>
-                </div>
-                <span className="font-body text-xs tracking-widest uppercase text-primary shrink-0">
-                  Read →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </>
       )}
 
       {/* CTA */}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { wellnessPosts, categoryLabels } from "@/lib/wellness";
+import { getAllWellnessPosts } from "@/lib/sanity";
 
 export const metadata: Metadata = {
   title: "The Mindful Table — Delhi Darling Table",
@@ -8,7 +8,18 @@ export const metadata: Metadata = {
     "Karuna Kumar on eating with intention — traditional grains, Indian spices, morning routines, and the food habits that support a healthy, grounded life.",
 };
 
-export default function WellnessPage() {
+export const revalidate = 60;
+
+const categoryLabels: Record<string, string> = {
+  routine: "Daily Routine",
+  ingredient: "Ingredients",
+  grain: "Back to Basics",
+  practice: "Practice",
+};
+
+export default async function WellnessPage() {
+  const posts = await getAllWellnessPosts();
+
   return (
     <div className="pt-16">
       {/* Header */}
@@ -69,38 +80,44 @@ export default function WellnessPage() {
           Latest writing
         </h2>
 
-        <div className="space-y-px bg-border">
-          {wellnessPosts.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/wellness/${post.slug}`}
-              className="group bg-background p-8 md:p-10 flex flex-col md:flex-row md:items-start gap-6 hover:bg-secondary transition-colors block"
-            >
-              <div className="md:w-1/4 shrink-0">
-                <span className="font-body text-xs tracking-widest uppercase text-primary">
-                  {categoryLabels[post.category]}
+        {posts.length === 0 ? (
+          <p className="font-body text-sm text-muted-foreground">
+            Articles coming soon.
+          </p>
+        ) : (
+          <div className="space-y-px bg-border">
+            {posts.map((post) => (
+              <Link
+                key={post._id}
+                href={`/wellness/${post.slug.current}`}
+                className="group bg-background p-8 md:p-10 flex flex-col md:flex-row md:items-start gap-6 hover:bg-secondary transition-colors block"
+              >
+                <div className="md:w-1/4 shrink-0">
+                  <span className="font-body text-xs tracking-widest uppercase text-primary">
+                    {categoryLabels[post.category] ?? post.category}
+                  </span>
+                  <p className="font-body text-xs text-muted-foreground mt-2">
+                    {post.readTime}
+                  </p>
+                </div>
+                <div className="md:flex-1">
+                  <h3 className="font-heading text-2xl md:text-3xl mb-3 group-hover:text-primary transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="font-heading italic text-muted-foreground mb-4">
+                    {post.subtitle}
+                  </p>
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </div>
+                <span className="font-body text-xs tracking-widest uppercase text-primary md:self-center shrink-0">
+                  Read →
                 </span>
-                <p className="font-body text-xs text-muted-foreground mt-2">
-                  {post.readTime}
-                </p>
-              </div>
-              <div className="md:flex-1">
-                <h3 className="font-heading text-2xl md:text-3xl mb-3 group-hover:text-primary transition-colors">
-                  {post.title}
-                </h3>
-                <p className="font-heading italic text-muted-foreground mb-4">
-                  {post.subtitle}
-                </p>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  {post.excerpt}
-                </p>
-              </div>
-              <span className="font-body text-xs tracking-widest uppercase text-primary md:self-center shrink-0">
-                Read →
-              </span>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* CTA */}
