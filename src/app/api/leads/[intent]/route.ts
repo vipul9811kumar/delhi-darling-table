@@ -62,9 +62,7 @@ export async function POST(
       City: body.city,
     });
   } catch (err) {
-    console.error("[Airtable] FAILED:", JSON.stringify(err, Object.getOwnPropertyNames(err)));
-    console.error("[Airtable] BASE_ID:", process.env.AIRTABLE_BASE_ID ?? "MISSING");
-    console.error("[Airtable] KEY prefix:", process.env.AIRTABLE_API_KEY?.slice(0, 8) ?? "MISSING");
+    console.error("Airtable error:", err);
     // Don't fail the request — still send emails
   }
 
