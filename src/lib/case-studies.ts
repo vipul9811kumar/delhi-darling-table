@@ -85,6 +85,76 @@ export const caseStudies: CaseStudy[] = [
     pullQuote:
       "We didn't come to Surf City to serve the tourists. We came to become part of the town.",
   },
+
+  {
+    slug: "tandoori-trail-apex",
+    name: "Tandoori Trail",
+    location: "Apex",
+    state: "NC",
+    period: "2023 – 2025",
+    covers: "60 covers",
+    tagline: "Awadhi heart. Pan Indian soul. Peak City's table.",
+    summary:
+      "Tandoori Trail Apex was the culmination of years of groundwork — ghost kitchens, farmers markets, and relentless recipe development — arriving finally as a proper brick-and-mortar restaurant in Apex, NC. In two years it built a strong regular following, earned a reputation for the Triangle's most ambitious regional Indian menu, and stood out as one of the few Indian restaurants in the area with a serious, curated wine programme.",
+
+    challenge: {
+      heading: "Earning a place in a competitive Triangle market",
+      body: "Apex sits in the Raleigh-Durham Triangle — one of the most competitive Indian restaurant markets in the South, with a large and discerning Indian-American population that has high expectations. Slow mid-week days, a demanding lease, and neighbours who were also good made every cover count. The restaurant had to be distinctly better, not just different.",
+    },
+
+    approach: {
+      heading: "Build from the ground up — literally",
+      body: "Tandoori Trail Apex was not a concept that arrived fully formed. It was the natural endpoint of Karuna's progression through ghost kitchens and farmers markets in the Triangle — years of testing dishes, reading the local palate, and refining recipes before a single lease was signed. The menu was built around the slow-cooked traditions of Lucknawi Awadhi cuisine — Kakori Kebab, Lamb Shank Nihari, dum biryanis layered with saffron and kewra — alongside the regional breadth of coastal, royal, and rustic Indian kitchens. What made it stand apart was the wine programme: Karuna developed curated pairings that treated regional Indian food with the same seriousness as any fine-dining menu, introducing a Triangle audience to the idea that a Rajputana Safed Maas and a well-chosen white could be a complete experience. The restaurant became a regular participant in Apex Restaurant Week and Peak City festivals, embedding itself in the local food community.",
+    },
+
+    result: {
+      heading: "A loyal regular base, a wine programme nobody else was doing, and a two-year run in Peak City",
+      body: "In two years Tandoori Trail Apex built exactly the kind of guest base that sustains a restaurant — regulars who came back for specific dishes, who brought friends, and who followed the restaurant's seasonal changes. The wine programme became a genuine point of difference in a market where Indian food and wine pairings were almost entirely absent. Participation in Apex Restaurant Week and Peak City festivals kept the restaurant visible and community-rooted. The restaurant closed in 2025, but the template it proved — that Awadhi-forward regional Indian food could anchor a loyal dining room in a competitive suburban market — is one Karuna brings directly to consulting clients.",
+    },
+
+    highlights: [
+      { label: "Open", value: "2023 – 2025" },
+      { label: "Covers", value: "60" },
+      { label: "Location", value: "Apex, NC" },
+      { label: "Origin", value: "Ghost kitchen → brick & mortar" },
+      { label: "Festival", value: "Apex Restaurant Week" },
+      { label: "Wine", value: "Curated pairings programme" },
+    ],
+
+    signatures: [
+      {
+        dish: "Kakori Kebab",
+        description:
+          "Finely minced lamb skewers from the Lucknawi tradition — named for the town outside Lucknow where the style originated. Served with pickled onions and mint chutney. The clearest statement of the restaurant's Awadhi identity.",
+      },
+      {
+        dish: "Lamb Shank Nihari",
+        description:
+          "Slow-braised Australian lamb shank in a rich brown onion stew — a dish with roots in the royal kitchens of Delhi and the early-morning street stalls of Old Delhi. A signature of the 'Delhi Darling Specials' section.",
+      },
+      {
+        dish: "Rajputana Safed Maas",
+        description:
+          "From the royal kitchen of the Mewars of Rajasthan — bone-in goat, cashew, cream, and saffron milk. One of the most historically specific dishes on any Indian menu in the Triangle.",
+      },
+      {
+        dish: "Tandoori Ratan",
+        description:
+          "The house mix grill: lamb burrah, old fashioned tandoori chicken, gilafi seekh, shikari maas ke sule, and Thai chili prawns. A full introduction to the tandoor programme on one plate.",
+      },
+    ],
+
+    community: [
+      "Annual participant — Apex Restaurant Week",
+      "Regular presence at Peak City festivals",
+      "Strong repeat regular base across the Triangle",
+      "First Indian restaurant in the area to offer curated wine pairings",
+      "Karuna's first brick-and-mortar — the end of the ghost kitchen and farmers market years",
+    ],
+
+    pullQuote:
+      "Every dish on that menu was tested at a farmers market first. By the time we opened, we already knew what Apex wanted.",
+  },
 ];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
