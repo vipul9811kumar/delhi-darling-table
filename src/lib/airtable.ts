@@ -30,6 +30,6 @@ export async function createLead(fields: LeadRecord): Promise<void> {
 
   if (!res.ok) {
     const error = await res.text();
-    throw new Error(`Airtable error: ${error}`);
+    throw new Error(`Airtable ${res.status}: ${error}`);
   }
 }
