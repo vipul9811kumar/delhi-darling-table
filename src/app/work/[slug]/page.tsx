@@ -6,6 +6,7 @@ import { getCaseStudy, caseStudies } from "@/lib/case-studies";
 
 const heroImages: Record<string, string> = {
   "delhi-darling": "/images/delhi-darling-hero.jpg",
+  "tandoori-trail-smithfield": "/images/tandoori-trail-smithfield-hero.jpg",
 };
 
 const dishImages: Record<string, string> = {
