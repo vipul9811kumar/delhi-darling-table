@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -24,12 +25,16 @@ export default function AboutPage() {
 
       {/* Main content */}
       <section className="px-6 max-w-6xl mx-auto py-16 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-        {/* Photo placeholder */}
+        {/* Portrait */}
         <div className="order-2 md:order-1">
-          <div className="aspect-[3/4] bg-secondary border border-border flex items-end p-6">
-            <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-              Karuna Kumar — Photo
-            </p>
+          <div className="aspect-[3/4] relative overflow-hidden">
+            <Image
+              src="/images/karuna-portrait.jpg"
+              alt="Karuna Kumar"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
 

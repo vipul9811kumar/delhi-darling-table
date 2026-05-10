@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -42,6 +43,11 @@ const cases = [
     highlights: ["$15 everyday lunch buffet", "Sizzler programme", "Family & community dining", "High-volume lunch service"],
   },
 ];
+
+const restaurantImages: Record<string, string> = {
+  "delhi-darling": "/images/delhi-darling-restaurant.jpg",
+  "tandoori-trail-smithfield": "/images/tandoori-trail-smithfield-restaurant.jpg",
+};
 
 export default function WorkPage() {
   return (
@@ -104,12 +110,24 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                {/* Photo placeholder */}
-                <div className="aspect-[16/6] bg-secondary border border-border flex items-end p-4 mb-6">
-                  <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-                    {c.name}, {c.location} — Restaurant Photography
-                  </p>
-                </div>
+                {/* Restaurant photo */}
+                {restaurantImages[c.slug] ? (
+                  <div className="aspect-[16/6] relative overflow-hidden mb-6">
+                    <Image
+                      src={restaurantImages[c.slug]}
+                      alt={`${c.name}, ${c.location}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 90vw"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/6] bg-secondary border border-border flex items-end p-4 mb-6">
+                    <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
+                      {c.name}, {c.location} — Photo coming soon
+                    </p>
+                  </div>
+                )}
 
                 <Link
                   href={`/work/${c.slug}`}

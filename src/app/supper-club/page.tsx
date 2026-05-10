@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -75,10 +76,14 @@ export default function SupperClubPage() {
 
         {/* Photo + upcoming dates */}
         <div className="space-y-8">
-          <div className="aspect-square bg-secondary border border-border flex items-end p-4">
-            <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-              Supper Club — Event Photography
-            </p>
+          <div className="aspect-square relative overflow-hidden">
+            <Image
+              src="/images/supper-club-event.jpg"
+              alt="Delhi Darling Table Supper Club"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
 
           {/* Upcoming dates */}

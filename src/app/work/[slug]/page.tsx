@@ -1,7 +1,25 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCaseStudy, caseStudies } from "@/lib/case-studies";
+
+const heroImages: Record<string, string> = {
+  "delhi-darling": "/images/delhi-darling-hero.jpg",
+};
+
+const dishImages: Record<string, string> = {
+  "Darling Naan Pizza": "/images/delhi-darling-dish-naan-pizza.jpg",
+  "Malabar Surf & Turf": "/images/delhi-darling-dish-malabar-surf-turf.jpg",
+  "Biryani Pot Pie": "/images/delhi-darling-dish-biryani-pot-pie.png",
+  "Kakori Kebab": "/images/tandoori-trail-apex-dish-kakori-kebab.jpg",
+  "Lamb Shank Nihari": "/images/tandoori-trail-apex-dish-lamb-nihari.jpg",
+  "Rajputana Safed Maas": "/images/tandoori-trail-apex-dish-safed-maas.jpg",
+  "Tandoori Ratan": "/images/tandoori-trail-apex-dish-tandoori-ratan.jpg",
+  "Tandoori Chicken Sandwich": "/images/tandoori-trail-smithfield-dish-chicken-sandwich.jpg",
+  "Chicken Tikka Wrap & Lamb Boti Wrap": "/images/tandoori-trail-smithfield-dish-wraps.jpg",
+  "$15 Everyday Lunch Buffet": "/images/tandoori-trail-smithfield-dish-buffet.png",
+};
 
 export async function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.slug }));
@@ -65,13 +83,26 @@ export default async function CaseStudyPage({
         </div>
       </section>
 
-      {/* Hero image placeholder */}
+      {/* Hero image */}
       <div className="px-6 max-w-6xl mx-auto mb-0">
-        <div className="aspect-[21/9] bg-secondary border border-border flex items-end p-6">
-          <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-            {study.name}, {study.location} — Restaurant Photography
-          </p>
-        </div>
+        {heroImages[slug] ? (
+          <div className="aspect-[21/9] relative overflow-hidden">
+            <Image
+              src={heroImages[slug]}
+              alt={`${study.name}, ${study.location}`}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+        ) : (
+          <div className="aspect-[21/9] bg-secondary border border-border flex items-end p-6">
+            <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
+              {study.name}, {study.location} — Photo coming soon
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="diamond-separator py-8" />
@@ -136,11 +167,23 @@ export default async function CaseStudyPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
           {study.signatures.map((s) => (
             <div key={s.dish} className="bg-background p-8">
-              <div className="aspect-video bg-secondary border border-border mb-6 flex items-end p-3">
-                <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-                  {s.dish} — Food Photography
-                </p>
-              </div>
+              {dishImages[s.dish] ? (
+                <div className="aspect-video relative overflow-hidden mb-6">
+                  <Image
+                    src={dishImages[s.dish]}
+                    alt={s.dish}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-video bg-secondary border border-border mb-6 flex items-end p-3">
+                  <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
+                    {s.dish} — Photo coming soon
+                  </p>
+                </div>
+              )}
               <h3 className="font-heading text-2xl mb-3">{s.dish}</h3>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
                 {s.description}
