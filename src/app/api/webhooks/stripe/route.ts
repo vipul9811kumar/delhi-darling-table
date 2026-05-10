@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "next-sanity";
 import { bookingConfirmation, karunaBookingNotification } from "@/lib/emails";
+import { createBooking } from "@/lib/airtable";
 import { Resend } from "resend";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -64,7 +65,25 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 2. Send emails in parallel
+    // 2. Record booking in Airtable
+    try {
+      await createBooking({
+        Name: guestName,
+        Email: guestEmail,
+        Phone: guestPhone,
+        Event: eventTitle ?? "",
+        Seats: seatsBooked,
+        "Amount Paid": amountPaid,
+        ...(dietary ? { Dietary: dietary } : {}),
+        "Stripe Session ID": session.id,
+        "Booked At": new Date().toISOString(),
+        Status: "Confirmed",
+      });
+    } catch (err) {
+      console.error("Airtable booking error:", err);
+    }
+
+    // 3. Send emails in parallel
     const bookingEmail = bookingConfirmation(guestName, {
       eventTitle: eventTitle ?? "Supper Club",
       seats: seatsBooked,
