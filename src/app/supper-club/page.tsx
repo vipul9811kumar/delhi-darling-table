@@ -205,12 +205,20 @@ export default async function SupperClubPage() {
           Menus we&apos;ve cooked
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
-          {["The Awadhi Table", "Coastal Karnataka", "A Bengal Evening"].map((title) => (
+          {[
+            { title: "The Awadhi Table", image: "/images/supper-club-awadhi.jpg" },
+            { title: "Coastal Karnataka", image: "/images/supper-club-karnataka.jpg" },
+            { title: "A Bengal Evening", image: "/images/supper-club-bengal.jpg" },
+          ].map(({ title, image }) => (
             <div key={title} className="bg-background p-8">
-              <div className="aspect-square bg-secondary border border-border mb-6 flex items-end p-3">
-                <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">
-                  Food Photography
-                </p>
+              <div className="aspect-square relative overflow-hidden mb-6">
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
               <h3 className="font-heading text-2xl mb-2">{title}</h3>
               <p className="font-body text-sm text-muted-foreground">
