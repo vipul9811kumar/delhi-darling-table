@@ -43,18 +43,22 @@ export async function POST(req: NextRequest) {
     // 1. Decrement seats in Sanity
     if (eventId) {
       try {
-        const current = await sanity.fetch<{ seatsRemaining: number }>(
+        const current = await sanity.fetch<{ seatsRemaining: number } | null>(
           `*[_type == "supperClubEvent" && _id == $id][0]{ seatsRemaining }`,
           { id: eventId }
         );
-        const newRemaining = Math.max(0, (current?.seatsRemaining ?? 0) - seatsBooked);
-        await sanity
-          .patch(eventId)
-          .set({
-            seatsRemaining: newRemaining,
-            ...(newRemaining === 0 ? { status: "sold-out" } : {}),
-          })
-          .commit();
+        if (!current) {
+          console.error("Webhook: Sanity event not found for id:", eventId);
+        } else {
+          const newRemaining = Math.max(0, current.seatsRemaining - seatsBooked);
+          await sanity
+            .patch(eventId)
+            .set({
+              seatsRemaining: newRemaining,
+              ...(newRemaining === 0 ? { status: "sold-out" } : {}),
+            })
+            .commit();
+        }
       } catch (err) {
         console.error("Sanity seat decrement error:", err);
       }
