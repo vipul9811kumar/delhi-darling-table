@@ -23,7 +23,7 @@ export const caseStudies: CaseStudy[] = [
     location: "Surf City",
     state: "NC",
     period: "2023 – 2026",
-    covers: "60 covers",
+    covers: "92 covers",
     tagline: "Destination Indian dining on the Carolina coast.",
     summary:
       "Delhi Darling brought the full breadth of the Indian subcontinent to Surf City — a seasonal beach town on the Topsail Island coast where Indian cuisine had no precedent. In three years it built a loyal local following, earned strong community recognition, and became a yearly presence at the Wilmington Food Festival.",
@@ -45,7 +45,7 @@ export const caseStudies: CaseStudy[] = [
 
     highlights: [
       { label: "Open", value: "2023 – 2026" },
-      { label: "Covers", value: "60" },
+      { label: "Covers", value: "92" },
       { label: "Location", value: "Surf City, NC" },
       { label: "Cuisine", value: "Pan Indian — regional" },
       { label: "Food Festival", value: "Wilmington Food Fest (annual)" },
@@ -162,7 +162,7 @@ export const caseStudies: CaseStudy[] = [
     location: "Smithfield",
     state: "NC",
     period: "2023 – 2026",
-    covers: "50 covers",
+    covers: "72 covers",
     tagline: "Bringing Indian food to where the burger and sweet tea used to be.",
     summary:
       "Tandoori Trail Smithfield was the hardest market of the three — a small Southern county seat where Indian food was entirely unfamiliar, the lunch crowd was price-sensitive, and hiring staff in a small town was a daily challenge. In three years it not only survived but built genuine loyalty: lunchtime regulars from the Johnston County Courthouse and state offices, packed tables at the Smithfield Downtown Wine Walk, and a crowd at the Ham and Yam Festival that came back year after year.",
@@ -184,7 +184,7 @@ export const caseStudies: CaseStudy[] = [
 
     highlights: [
       { label: "Open", value: "2023 – 2026" },
-      { label: "Covers", value: "50" },
+      { label: "Covers", value: "72" },
       { label: "Location", value: "Smithfield, NC" },
       { label: "Market", value: "Johnston County courthouse crowd" },
       { label: "Festival", value: "Ham & Yam + Wine Walk" },

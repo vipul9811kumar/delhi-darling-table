@@ -14,7 +14,7 @@ const cases = [
     name: "Delhi Darling",
     location: "Surf City, NC",
     years: "3+ years",
-    covers: "60 covers",
+    covers: "92 covers",
     tagline: "Destination dining on the Carolina coast.",
     description:
       "A Pan Indian destination restaurant that brought the breadth of the subcontinent — from Kundapur Ghee Roast to Bengali Daab Chingri — to a beach town on the Topsail Island coast. Home of the original Darling Naan Pizza.",
@@ -36,7 +36,7 @@ const cases = [
     name: "Tandoori Trail",
     location: "Smithfield, NC",
     years: "3+ years",
-    covers: "50 covers",
+    covers: "72 covers",
     tagline: "Indian food for everyday North Carolina.",
     description:
       "A family restaurant built for Johnston County — accessible everyday Indian with a $15 lunch buffet, sizzler platters, wraps and rolls, and a full dinner menu. Proving great Indian food works at every price point.",
