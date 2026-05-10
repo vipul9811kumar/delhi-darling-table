@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { getUpcomingEvents } from "@/lib/sanity";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Supper Club",
@@ -8,7 +11,9 @@ export const metadata: Metadata = {
     "Intimate ticketed dinners by Karuna Kumar, exploring one region of India per evening. Small tables. No compromises.",
 };
 
-export default function SupperClubPage() {
+export default async function SupperClubPage() {
+  const events = await getUpcomingEvents();
+
   return (
     <div className="pt-16">
       {/* Hero */}
@@ -74,8 +79,8 @@ export default function SupperClubPage() {
           </div>
         </div>
 
-        {/* Photo + upcoming dates */}
-        <div className="space-y-8">
+        {/* Photo */}
+        <div>
           <div className="aspect-square relative overflow-hidden">
             <Image
               src="/images/supper-club-event.jpg"
@@ -85,36 +90,113 @@ export default function SupperClubPage() {
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
-
-          {/* Upcoming dates */}
-          <div className="border border-border p-8">
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-6">
-              Upcoming Dates
-            </p>
-            <div className="space-y-4">
-              <div className="border-t border-border pt-4">
-                <p className="font-heading text-xl mb-1">Coming Soon</p>
-                <p className="font-body text-sm text-muted-foreground">
-                  The next edition of the Delhi Darling Table supper club is
-                  being planned. Join the waitlist to be notified first.
-                </p>
-              </div>
-            </div>
-            <div className="mt-6">
-              <Link
-                href="/contact?intent=supper-club"
-                className="font-body text-sm tracking-widest uppercase px-6 py-4 bg-primary text-primary-foreground hover:opacity-90 transition-opacity inline-block w-full text-center"
-              >
-                Join the Waitlist
-              </Link>
-            </div>
-          </div>
         </div>
+      </section>
+
+      <div className="diamond-separator py-4" />
+
+      {/* Upcoming events */}
+      <section className="px-6 max-w-6xl mx-auto py-16">
+        <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-4">
+          Upcoming Dates
+        </p>
+        <h2 className="font-heading text-4xl md:text-5xl mb-12">
+          Reserve your seat
+        </h2>
+
+        {events.length === 0 ? (
+          <div className="border border-border p-10 text-center">
+            <p className="font-heading text-2xl mb-3">Coming Soon</p>
+            <p className="font-body text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed mb-8">
+              The next edition of the Delhi Darling Table supper club is being
+              planned. Join the waitlist to be notified first.
+            </p>
+            <Link
+              href="/contact?intent=supper-club"
+              className="font-body text-sm tracking-widest uppercase px-8 py-4 bg-primary text-primary-foreground hover:opacity-90 transition-opacity inline-block"
+            >
+              Join the Waitlist
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-px bg-border">
+            {events.map((event) => {
+              const date = new Date(event.date);
+              const soldOut = event.status === "sold-out" || event.seatsRemaining === 0;
+              return (
+                <div key={event._id} className="bg-background">
+                  <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
+                    <div className="shrink-0">
+                      <p className="font-body text-xs tracking-widest uppercase text-primary mb-1">
+                        {event.location}
+                      </p>
+                      <p className="font-heading text-3xl">
+                        {date.toLocaleDateString("en-US", { month: "long", day: "numeric" })}
+                      </p>
+                      <p className="font-body text-sm text-muted-foreground">
+                        {date.toLocaleDateString("en-US", { year: "numeric" })}&nbsp;·&nbsp;
+                        {date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
+                      </p>
+                      <div className="flex gap-3 mt-4 flex-wrap">
+                        <span className="font-body text-xs border border-border px-3 py-1 text-muted-foreground">
+                          ${event.pricePerPerson} / person
+                        </span>
+                        <span className={`font-body text-xs border px-3 py-1 ${soldOut ? "border-destructive text-destructive" : "border-border text-muted-foreground"}`}>
+                          {soldOut ? "Sold out" : `${event.seatsRemaining} seats left`}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <h3 className="font-heading text-2xl md:text-3xl mb-2">{event.title}</h3>
+                      {event.tagline && (
+                        <p className="font-heading italic text-lg text-muted-foreground mb-4">
+                          {event.tagline}
+                        </p>
+                      )}
+                      <p className="font-body text-sm text-muted-foreground leading-relaxed mb-6">
+                        {event.description}
+                      </p>
+                      <div className="flex gap-4 flex-wrap items-center">
+                        <Link
+                          href={`/supper-club/${event.slug.current}`}
+                          className="font-body text-sm tracking-widest uppercase text-primary hover:opacity-70 transition-opacity"
+                        >
+                          See full menu →
+                        </Link>
+                        {!soldOut && (
+                          <Link
+                            href={`/supper-club/${event.slug.current}#book`}
+                            className="font-body text-sm tracking-widest uppercase px-6 py-3 bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                          >
+                            Book a Seat
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {event.coverImage?.url && (
+                    <div className="aspect-[21/6] relative overflow-hidden">
+                      <Image
+                        src={event.coverImage.url}
+                        alt={event.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       <div className="diamond-separator py-6" />
 
-      {/* Past menus — placeholder */}
+      {/* Past menus */}
       <section className="px-6 max-w-6xl mx-auto py-24">
         <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-4">
           Past Evenings
@@ -123,11 +205,7 @@ export default function SupperClubPage() {
           Menus we&apos;ve cooked
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
-          {[
-            "The Awadhi Table",
-            "Coastal Karnataka",
-            "A Bengal Evening",
-          ].map((title) => (
+          {["The Awadhi Table", "Coastal Karnataka", "A Bengal Evening"].map((title) => (
             <div key={title} className="bg-background p-8">
               <div className="aspect-square bg-secondary border border-border mb-6 flex items-end p-3">
                 <p className="font-body text-xs text-muted-foreground tracking-widest uppercase">

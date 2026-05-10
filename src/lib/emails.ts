@@ -155,3 +155,53 @@ export function karunaNotification(data: Record<string, string>): EmailPayload {
     `),
   };
 }
+
+// ── Supper Club booking emails ────────────────────────────────────────────────
+
+export function bookingConfirmation(
+  name: string,
+  details: { eventTitle: string; seats: number; total: number }
+): EmailPayload {
+  return {
+    to: "",
+    subject: `Your seat is confirmed — ${details.eventTitle}`,
+    html: baseTemplate(`
+      ${heading(`Your seat is confirmed, ${gold(name)}.`)}
+      ${body(`You've booked <strong>${details.seats} ${details.seats === 1 ? "seat" : "seats"}</strong> for <strong>${details.eventTitle}</strong>.`)}
+      ${body(`Total paid: <strong>$${details.total}</strong>`)}
+      ${divider()}
+      ${body("The dinner address will be shared closer to the date. If you have any questions or need to change your booking, reply to this email.")}
+      ${body("We look forward to cooking for you.")}
+      ${divider()}
+      ${body(`<a href="https://delhi-darling.com/supper-club" style="color:${BRAND_COLOR};">Delhi Darling Table Supper Club →</a>`)}
+    `),
+  };
+}
+
+export function karunaBookingNotification(data: Record<string, string>): EmailPayload {
+  const rows = Object.entries(data)
+    .filter(([, v]) => v)
+    .map(
+      ([k, v]) => `
+      <tr>
+        <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:12px;color:#999;text-transform:uppercase;letter-spacing:1px;width:140px;vertical-align:top;">${k}</td>
+        <td style="padding:8px 0;font-family:Arial,sans-serif;font-size:14px;color:${DARK};vertical-align:top;">${v}</td>
+      </tr>`
+    )
+    .join("");
+
+  return {
+    to: "",
+    subject: `New booking — ${data.Event} (${data.Seats} ${data.Seats === "1" ? "seat" : "seats"})`,
+    html: baseTemplate(`
+      ${heading(`New ${gold("supper club")} booking`)}
+      ${body("A guest just completed payment on delhi-darling.com.")}
+      ${divider()}
+      <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #DDD5C8;">
+        ${rows}
+      </table>
+      ${divider()}
+      ${body(`<a href="https://dashboard.stripe.com/payments" style="color:${BRAND_COLOR};">View in Stripe →</a>`)}
+    `),
+  };
+}

@@ -65,3 +65,67 @@ export async function getAllWellnessSlugs(): Promise<string[]> {
   );
   return results.map((r) => r.slug.current);
 }
+
+// ── Supper Club Events ────────────────────────────────────────────────────────
+
+export type SanityMenuCourse = {
+  _key: string;
+  course: "snack" | "starter" | "main" | "sides" | "dessert" | "beverage";
+  dish: string;
+  description?: string;
+};
+
+export type SanitySupperClubEvent = {
+  _id: string;
+  slug: { current: string };
+  title: string;
+  status: "draft" | "published" | "sold-out" | "past";
+  date: string;
+  location: string;
+  totalSeats: number;
+  seatsRemaining: number;
+  pricePerPerson: number;
+  region: string;
+  tagline?: string;
+  coverImage?: SanityImageAsset;
+  description: string;
+  menu: SanityMenuCourse[];
+  whatToExpect?: string;
+  stripePriceId?: string;
+};
+
+const EVENT_FIELDS = `
+  _id, slug, title, status, date, location, totalSeats, seatsRemaining,
+  pricePerPerson, region, tagline, description, whatToExpect, stripePriceId,
+  "coverImage": coverImage { "url": asset->url, alt }
+`;
+
+export async function getUpcomingEvents(): Promise<SanitySupperClubEvent[]> {
+  return client.fetch(
+    `*[_type == "supperClubEvent" && status in ["published", "sold-out"]] | order(date asc) {
+      ${EVENT_FIELDS}
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+}
+
+export async function getSupperClubEvent(slug: string): Promise<SanitySupperClubEvent | null> {
+  return client.fetch(
+    `*[_type == "supperClubEvent" && slug.current == $slug && status in ["published", "sold-out"]][0] {
+      ${EVENT_FIELDS},
+      menu[] { _key, course, dish, description }
+    }`,
+    { slug },
+    { next: { revalidate: 60 } }
+  );
+}
+
+export async function getAllEventSlugs(): Promise<string[]> {
+  const results = await client.fetch<{ slug: { current: string } }[]>(
+    `*[_type == "supperClubEvent"]{ slug }`,
+    {},
+    { next: { revalidate: 3600 } }
+  );
+  return results.map((r) => r.slug.current);
+}
