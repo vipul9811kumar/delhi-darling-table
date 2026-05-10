@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.CheckoutSession;
+    const session = event.data.object as Stripe.Checkout.Session;
     const { eventId, eventTitle, seats } = session.metadata ?? {};
     const guestEmail = session.customer_details?.email ?? "";
     const guestName = session.customer_details?.name ?? "Guest";
@@ -103,4 +103,3 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
-export const config = { api: { bodyParser: false } };
