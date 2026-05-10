@@ -46,6 +46,7 @@ const cases = [
 
 const restaurantImages: Record<string, string> = {
   "delhi-darling": "/images/delhi-darling-restaurant.jpg",
+  "tandoori-trail-apex": "/images/tandoori-trail-apex-restaurant.jpg",
   "tandoori-trail-smithfield": "/images/tandoori-trail-smithfield-restaurant.jpg",
 };
 
