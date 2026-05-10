@@ -10,6 +10,7 @@ const heroImages: Record<string, string> = {
 
 const dishImages: Record<string, string> = {
   "Darling Naan Pizza": "/images/delhi-darling-dish-naan-pizza.jpg",
+  "Chingri Malai Curry": "/images/delhi-darling-dish-chingari-malai-curry.jpg",
   "Malabar Surf & Turf": "/images/delhi-darling-dish-malabar-surf-turf.jpg",
   "Biryani Pot Pie": "/images/delhi-darling-dish-biryani-pot-pie.png",
   "Kakori Kebab": "/images/tandoori-trail-apex-dish-kakori-kebab.jpg",

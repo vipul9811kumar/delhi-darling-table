@@ -64,9 +64,9 @@ export const caseStudies: CaseStudy[] = [
           "Boneless lamb, Norwegian salmon, and jumbo shrimps in a coastal Karnataka mustard-coconut preparation — the dish that told the whole Delhi Darling story in one plate.",
       },
       {
-        dish: "Kundapur Ghee Roast Chicken",
+        dish: "Chingri Malai Curry",
         description:
-          "Bone-in chicken with Bydagi chilies and curry leaves from the coastal Mangalorian tradition of Kundapur, Karnataka — one of the most regionally specific dishes on any Indian menu in North Carolina.",
+          "A prestigious Bengali seafood dish — Tiger prawns simmered in a silky coconut milk gravy, spiced with ginger, cinnamon, and cardamom, finished in mustard oil. The name 'malai' is believed by food historians to reference its Malaysian roots, brought to Bengal by Southeast Asian traders, rather than the Hindi word for cream.",
       },
       {
         dish: "Biryani Pot Pie",
