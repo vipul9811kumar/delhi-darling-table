@@ -17,6 +17,7 @@ const dishImages: Record<string, string> = {
   "Rajputana Safed Maas": "/images/tandoori-trail-apex-dish-safed-maas.jpg",
   "Tandoori Ratan": "/images/tandoori-trail-apex-dish-tandoori-ratan.jpg",
   "Tandoori Chicken Sandwich": "/images/tandoori-trail-smithfield-dish-chicken-sandwich.jpg",
+  "Indian Flavoured Sizzlers": "/images/tandoori-trail-smithfield-dish-sizzler.jpg",
   "Chicken Tikka Wrap & Lamb Boti Wrap": "/images/tandoori-trail-smithfield-dish-wraps.jpg",
   "$15 Everyday Lunch Buffet": "/images/tandoori-trail-smithfield-dish-buffet.png",
 };
