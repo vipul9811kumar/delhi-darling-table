@@ -8,6 +8,12 @@ export const client = createClient({
   useCdn: true,
 });
 
+export type SanityImageAsset = {
+  url: string;
+  alt?: string;
+  caption?: string;
+};
+
 export type SanityWellnessPost = {
   _id: string;
   slug: { current: string };
@@ -16,13 +22,15 @@ export type SanityWellnessPost = {
   category: "routine" | "ingredient" | "grain" | "practice";
   readTime: string;
   excerpt: string;
+  coverImage?: SanityImageAsset;
   body: PortableTextBlock[];
 };
 
 export async function getAllWellnessPosts(): Promise<SanityWellnessPost[]> {
   return client.fetch(
     `*[_type == "wellnessPost"] | order(_createdAt desc) {
-      _id, slug, title, subtitle, category, readTime, excerpt
+      _id, slug, title, subtitle, category, readTime, excerpt,
+      "coverImage": coverImage { "url": asset->url, alt }
     }`,
     {},
     { next: { revalidate: 60 } }
@@ -32,7 +40,17 @@ export async function getAllWellnessPosts(): Promise<SanityWellnessPost[]> {
 export async function getWellnessPost(slug: string): Promise<SanityWellnessPost | null> {
   return client.fetch(
     `*[_type == "wellnessPost" && slug.current == $slug][0] {
-      _id, slug, title, subtitle, category, readTime, excerpt, body
+      _id, slug, title, subtitle, category, readTime, excerpt,
+      "coverImage": coverImage { "url": asset->url, alt },
+      body[] {
+        ...,
+        _type == "image" => {
+          ...,
+          "url": asset->url,
+          alt,
+          caption
+        }
+      }
     }`,
     { slug },
     { next: { revalidate: 60 } }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
@@ -49,6 +50,27 @@ const portableTextComponents = {
       </h2>
     ),
   },
+  types: {
+    image: ({ value }: { value: { url: string; alt?: string; caption?: string } }) =>
+      value?.url ? (
+        <figure className="my-10">
+          <div className="relative w-full aspect-[16/9] overflow-hidden">
+            <Image
+              src={value.url}
+              alt={value.alt ?? ""}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 672px"
+            />
+          </div>
+          {value.caption && (
+            <figcaption className="font-body text-xs text-muted-foreground text-center mt-3 tracking-wide">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      ) : null,
+  },
 };
 
 export default async function WellnessPostPage({
@@ -92,6 +114,22 @@ export default async function WellnessPostPage({
           {post.subtitle}
         </p>
       </section>
+
+      {/* Cover image */}
+      {post.coverImage?.url && (
+        <div className="px-6 max-w-6xl mx-auto mb-0">
+          <div className="aspect-[21/9] relative overflow-hidden">
+            <Image
+              src={post.coverImage.url}
+              alt={post.coverImage.alt ?? post.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+        </div>
+      )}
 
       <div className="diamond-separator py-4" />
 

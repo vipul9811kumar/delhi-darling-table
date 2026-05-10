@@ -48,6 +48,13 @@ export const wellnessPost = defineType({
       initialValue: "3 min read",
     }),
     defineField({
+      name: "coverImage",
+      title: "Cover Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Hero image shown at the top of the article.",
+    }),
+    defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
@@ -72,6 +79,23 @@ export const wellnessPost = defineType({
               { title: "Italic", value: "em" },
             ],
           },
+        },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              title: "Alt text",
+              type: "string",
+              description: "Describe the image for accessibility.",
+            },
+            {
+              name: "caption",
+              title: "Caption",
+              type: "string",
+            },
+          ],
         },
       ],
     }),
