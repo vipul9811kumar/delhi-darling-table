@@ -98,6 +98,9 @@ function ContactForm() {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="md:col-span-2 space-y-6">
+        {/* Honeypot — hidden from humans, bots fill it in */}
+        <input type="text" name="website" autoComplete="off" tabIndex={-1} className="hidden" aria-hidden="true" />
+
         {/* Common fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>

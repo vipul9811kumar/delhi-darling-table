@@ -42,7 +42,13 @@ export async function POST(
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, email } = body;
+  const { name, email, website } = body;
+
+  // Honeypot — bots fill this, humans don't see it
+  if (website) {
+    return NextResponse.json({ success: true });
+  }
+
   if (!name || !email) {
     return NextResponse.json({ error: "Name and email are required" }, { status: 400 });
   }
