@@ -14,6 +14,9 @@ export type LeadRecord = {
   "Event Date"?: string;
   "Guest Count"?: string;
   City?: string;
+  Concept?: string;
+  "Preferred Dates"?: string;
+  "Expected Covers"?: string;
 };
 
 export async function createLead(fields: LeadRecord): Promise<void> {

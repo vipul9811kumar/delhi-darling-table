@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-type Intent = "consulting" | "catering" | "supper-club" | "press";
+type Intent = "consulting" | "catering" | "supper-club" | "pop-up" | "press";
 
 const intents: { id: Intent; label: string; description: string }[] = [
   {
@@ -20,6 +20,11 @@ const intents: { id: Intent; label: string; description: string }[] = [
     id: "supper-club",
     label: "Supper Club Waitlist",
     description: "Be notified of upcoming dinners",
+  },
+  {
+    id: "pop-up",
+    label: "Pop-Up Inquiry",
+    description: "Host or collaborate on a pop-up",
   },
   {
     id: "press",
@@ -62,6 +67,8 @@ function ContactForm() {
         <p className="font-body text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
           {intent === "supper-club"
             ? "You're on the waitlist. We'll reach out before the next date goes public."
+            : intent === "pop-up"
+            ? "We've received your pop-up enquiry. Karuna will be in touch within two business days."
             : "Karuna will be in touch within two business days."}
         </p>
       </div>
@@ -204,6 +211,58 @@ function ContactForm() {
           </div>
         )}
 
+        {/* Pop-up specific */}
+        {intent === "pop-up" && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label className="font-body text-xs tracking-widest uppercase text-muted-foreground block mb-2">
+                  City / Location *
+                </label>
+                <input
+                  name="city"
+                  required
+                  className="w-full border border-border bg-background px-4 py-3 font-body text-sm focus:outline-none focus:border-primary transition-colors"
+                  placeholder="Where would the pop-up be hosted?"
+                />
+              </div>
+              <div>
+                <label className="font-body text-xs tracking-widest uppercase text-muted-foreground block mb-2">
+                  Concept / Cuisine Style *
+                </label>
+                <input
+                  name="concept"
+                  required
+                  className="w-full border border-border bg-background px-4 py-3 font-body text-sm focus:outline-none focus:border-primary transition-colors"
+                  placeholder="e.g. Regional Indian, street food, modern..."
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label className="font-body text-xs tracking-widest uppercase text-muted-foreground block mb-2">
+                  Preferred Dates
+                </label>
+                <input
+                  name="preferredDates"
+                  className="w-full border border-border bg-background px-4 py-3 font-body text-sm focus:outline-none focus:border-primary transition-colors"
+                  placeholder="Any dates or timeframe in mind?"
+                />
+              </div>
+              <div>
+                <label className="font-body text-xs tracking-widest uppercase text-muted-foreground block mb-2">
+                  Expected Covers
+                </label>
+                <input
+                  name="expectedCovers"
+                  className="w-full border border-border bg-background px-4 py-3 font-body text-sm focus:outline-none focus:border-primary transition-colors"
+                  placeholder="Approx. number of covers"
+                />
+              </div>
+            </div>
+          </>
+        )}
+
         {/* Supper club — email only, no message needed */}
         {intent === "supper-club" && (
           <div>
@@ -234,6 +293,8 @@ function ContactForm() {
                   ? "Tell us about the event — type, venue, cuisine preferences, any dietary needs..."
                   : intent === "press"
                   ? "Tell us about the collaboration or feature you have in mind..."
+                  : intent === "pop-up"
+                  ? "Tell us more about the idea — venue type, vibe, any partnerships in mind..."
                   : "Tell us about your restaurant concept or challenge..."
               }
             />
@@ -245,7 +306,7 @@ function ContactForm() {
           disabled={loading}
           className="font-body text-sm tracking-widest uppercase px-8 py-4 bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-50"
         >
-          {loading ? "Sending..." : intent === "supper-club" ? "Join the Waitlist" : "Send Message"}
+          {loading ? "Sending..." : intent === "supper-club" ? "Join the Waitlist" : intent === "pop-up" ? "Send Inquiry" : "Send Message"}
         </button>
       </form>
     </div>

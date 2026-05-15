@@ -113,6 +113,20 @@ export function supperClubThankYou(name: string): EmailPayload {
   };
 }
 
+export function popUpThankYou(name: string): EmailPayload {
+  return {
+    to: "",
+    subject: "Pop-up enquiry received — Delhi Darling Table",
+    html: baseTemplate(`
+      ${heading(`Thank you, ${gold(name)}.`)}
+      ${body("We've received your pop-up enquiry. Karuna will review the details and be in touch within two business days to talk through the concept.")}
+      ${body("Whether it's a single night at a market or a week-long residency, every pop-up is built from a clear idea — the more you can share about your vision, the better.")}
+      ${divider()}
+      ${body(`<a href="https://delhi-darling.com/services/pop-up" style="color:${BRAND_COLOR};">About our pop-up service →</a>`)}
+    `),
+  };
+}
+
 export function pressThankYou(name: string): EmailPayload {
   return {
     to: "",

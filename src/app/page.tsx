@@ -25,6 +25,12 @@ const services = [
       "Intimate ticketed dinners exploring a single region of India. A table worth travelling for.",
     href: "/supper-club",
   },
+  {
+    title: "Pop-Up Restaurants",
+    description:
+      "Full-service pop-up dining — concept, kitchen, and execution. Markets, venues, brand collaborations.",
+    href: "/services/pop-up",
+  },
 ];
 
 const work = [
@@ -97,7 +103,7 @@ export default function Home() {
           What We Do
         </p>
         <h2 className="font-heading text-4xl md:text-5xl mb-16 max-w-xl">
-          Four ways to work together
+          Five ways to work together
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
           {services.map((s) => (

@@ -5,6 +5,7 @@ import {
   consultingThankYou,
   cateringThankYou,
   supperClubThankYou,
+  popUpThankYou,
   pressThankYou,
   karunaNotification,
 } from "@/lib/emails";
@@ -13,13 +14,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const KARUNA_EMAIL = process.env.KARUNA_EMAIL!;
 const FROM_EMAIL = process.env.FROM_EMAIL!;
 
-type Intent = "consulting" | "catering" | "supper-club" | "press";
+type Intent = "consulting" | "catering" | "supper-club" | "pop-up" | "press";
 
 function getThankYouEmail(intent: Intent, name: string) {
   switch (intent) {
     case "consulting":   return consultingThankYou(name);
     case "catering":     return cateringThankYou(name);
     case "supper-club":  return supperClubThankYou(name);
+    case "pop-up":       return popUpThankYou(name);
     case "press":        return pressThankYou(name);
   }
 }
@@ -29,7 +31,7 @@ export async function POST(
   { params }: { params: Promise<{ intent: string }> }
 ) {
   const { intent } = await params;
-  const validIntents: Intent[] = ["consulting", "catering", "supper-club", "press"];
+  const validIntents: Intent[] = ["consulting", "catering", "supper-club", "pop-up", "press"];
 
   if (!validIntents.includes(intent as Intent)) {
     return NextResponse.json({ error: "Invalid intent" }, { status: 400 });
@@ -66,6 +68,9 @@ export async function POST(
       "Event Date": body.eventDate,
       "Guest Count": body.guestCount,
       City: body.city,
+      Concept: body.concept,
+      "Preferred Dates": body.preferredDates,
+      "Expected Covers": body.expectedCovers,
     });
   } catch (err) {
     console.error("Airtable error:", err);
@@ -84,7 +89,10 @@ export async function POST(
     ...(body.location     && { Location: body.location }),
     ...(body.eventDate    && { "Event Date": body.eventDate }),
     ...(body.guestCount   && { "Guest Count": body.guestCount }),
-    ...(body.city         && { City: body.city }),
+    ...(body.city           && { City: body.city }),
+    ...(body.concept        && { Concept: body.concept }),
+    ...(body.preferredDates && { "Preferred Dates": body.preferredDates }),
+    ...(body.expectedCovers && { "Expected Covers": body.expectedCovers }),
   });
 
   try {
