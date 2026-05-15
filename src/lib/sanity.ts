@@ -129,3 +129,71 @@ export async function getAllEventSlugs(): Promise<string[]> {
   );
   return results.map((r) => r.slug.current);
 }
+
+// ── Pop-Up Events ─────────────────────────────────────────────────────────────
+
+export type SanityPopUpDish = {
+  _key: string;
+  dish: string;
+  description?: string;
+};
+
+export type SanityPopUpEvent = {
+  _id: string;
+  slug: { current: string };
+  title: string;
+  status: "draft" | "published" | "sold-out" | "past";
+  startDate: string;
+  endDate?: string;
+  venueName: string;
+  venueAddress: string;
+  city: string;
+  format: "walk-in" | "ticketed" | "hybrid";
+  totalTickets?: number;
+  ticketsRemaining?: number;
+  ticketPrice?: number;
+  collaborator?: string;
+  cuisine: string;
+  tagline?: string;
+  coverImage?: SanityImageAsset;
+  description: string;
+  menu?: SanityPopUpDish[];
+  stripePriceId?: string;
+};
+
+const POP_UP_FIELDS = `
+  _id, slug, title, status, startDate, endDate, venueName, venueAddress,
+  city, format, totalTickets, ticketsRemaining, ticketPrice, collaborator,
+  cuisine, tagline, description, stripePriceId,
+  "coverImage": coverImage { "url": asset->url, alt }
+`;
+
+export async function getUpcomingPopUps(): Promise<SanityPopUpEvent[]> {
+  return client.fetch(
+    `*[_type == "popUpEvent" && status in ["published", "sold-out"]] | order(startDate asc) {
+      ${POP_UP_FIELDS}
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
+}
+
+export async function getPopUpEvent(slug: string): Promise<SanityPopUpEvent | null> {
+  return client.fetch(
+    `*[_type == "popUpEvent" && slug.current == $slug && status in ["published", "sold-out"]][0] {
+      ${POP_UP_FIELDS},
+      menu[] { _key, dish, description }
+    }`,
+    { slug },
+    { next: { revalidate: 60 } }
+  );
+}
+
+export async function getAllPopUpSlugs(): Promise<string[]> {
+  const results = await client.fetch<{ slug: { current: string } }[]>(
+    `*[_type == "popUpEvent"]{ slug }`,
+    {},
+    { next: { revalidate: 3600 } }
+  );
+  return results.map((r) => r.slug.current);
+}

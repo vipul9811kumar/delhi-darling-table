@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Restaurant consulting, menu development, private catering, and supper clubs — four ways to work with Karuna Kumar.",
+    "Restaurant consulting, menu development, private catering, supper clubs, and pop-up restaurants — five ways to work with Karuna Kumar.",
 };
 
 const services = [
@@ -67,6 +67,21 @@ const services = [
       "Bay Area, Los Angeles, and beyond",
     ],
   },
+  {
+    href: "/services/pop-up",
+    label: "05",
+    title: "Pop-Up Restaurant",
+    description:
+      "A fully permitted, commercially operated restaurant without the lease. Karuna designs and runs pop-ups that test concepts, build brands, and bring Indian food into markets where it has never existed before. Open to the public, commercially insured, health-inspected — the real thing, on a defined timeline.",
+    deliverables: [
+      "Concept & menu development",
+      "Permits, licensing & insurance",
+      "Kitchen setup & staffing",
+      "Ticket & reservation system",
+      "Press & community outreach",
+      "Post-run debrief & learnings",
+    ],
+  },
 ];
 
 export default function ServicesPage() {
@@ -77,7 +92,7 @@ export default function ServicesPage() {
           Services
         </p>
         <h1 className="font-heading text-5xl md:text-7xl leading-[1.05] max-w-3xl">
-          Four ways to work
+          Five ways to work
           <br />
           <em>with us.</em>
         </h1>

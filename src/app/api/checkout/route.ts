@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     pricePerPerson: number;
     seats: number;
     stripePriceId?: string;
+    eventType?: "supper-club" | "pop-up";
   };
 
   try {
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { eventId, eventTitle, eventDate, pricePerPerson, seats, stripePriceId } = body;
+  const { eventId, eventTitle, eventDate, pricePerPerson, seats, stripePriceId, eventType = "supper-club" } = body;
 
   if (!eventId || !seats || seats < 1 || !pricePerPerson) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -44,14 +45,15 @@ export async function POST(req: NextRequest) {
       priceId = price.id;
     }
 
+    const isPopUp = eventType === "pop-up";
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: priceId, quantity: seats }],
-      success_url: `${origin}/supper-club/booking-confirmed?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/supper-club`,
-      metadata: { eventId, eventTitle, seats: String(seats) },
+      success_url: `${origin}/${isPopUp ? "pop-ups" : "supper-club"}/booking-confirmed?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/${isPopUp ? "pop-ups" : "supper-club"}`,
+      metadata: { eventId, eventTitle, seats: String(seats), eventType },
       payment_intent_data: {
-        metadata: { eventId, eventTitle, seats: String(seats) },
+        metadata: { eventId, eventTitle, seats: String(seats), eventType },
       },
       phone_number_collection: { enabled: true },
       custom_fields: [

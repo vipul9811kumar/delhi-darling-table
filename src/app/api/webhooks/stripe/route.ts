@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    const { eventId, eventTitle, seats } = session.metadata ?? {};
+    const { eventId, eventTitle, seats, eventType } = session.metadata ?? {};
     const guestEmail = session.customer_details?.email ?? "";
     const guestName = session.customer_details?.name ?? "Guest";
     const guestPhone = session.customer_details?.phone ?? "";
@@ -41,21 +41,25 @@ export async function POST(req: NextRequest) {
     const amountPaid = (session.amount_total ?? 0) / 100;
     const dietary = session.custom_fields?.find((f) => f.key === "dietary")?.text?.value ?? "";
 
-    // 1. Decrement seats in Sanity
+    // 1. Decrement seats/tickets in Sanity
     if (eventId) {
       try {
-        const current = await sanity.fetch<{ seatsRemaining: number } | null>(
-          `*[_type == "supperClubEvent" && _id == $id][0]{ seatsRemaining }`,
-          { id: eventId }
+        const isPopUp = eventType === "pop-up";
+        const sanityType = isPopUp ? "popUpEvent" : "supperClubEvent";
+        const remainingField = isPopUp ? "ticketsRemaining" : "seatsRemaining";
+
+        const current = await sanity.fetch<Record<string, number> | null>(
+          `*[_type == $type && _id == $id][0]{ "${remainingField}": ${remainingField} }`,
+          { type: sanityType, id: eventId }
         );
         if (!current) {
           console.error("Webhook: Sanity event not found for id:", eventId);
         } else {
-          const newRemaining = Math.max(0, current.seatsRemaining - seatsBooked);
+          const newRemaining = Math.max(0, (current[remainingField] ?? 0) - seatsBooked);
           await sanity
             .patch(eventId)
             .set({
-              seatsRemaining: newRemaining,
+              [remainingField]: newRemaining,
               ...(newRemaining === 0 ? { status: "sold-out" } : {}),
             })
             .commit();
