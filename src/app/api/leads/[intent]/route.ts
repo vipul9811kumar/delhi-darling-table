@@ -56,6 +56,7 @@ export async function POST(
   }
 
   // 1. Save to Airtable
+  let airtableError: string | null = null;
   try {
     await createLead({
       Name: name,
@@ -73,6 +74,7 @@ export async function POST(
       "Expected Covers": body.expectedCovers,
     });
   } catch (err) {
+    airtableError = String(err);
     console.error("Airtable error:", err);
     // Don't fail the request — still send emails
   }
@@ -115,5 +117,5 @@ export async function POST(
     // Lead is already saved — don't fail the response
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, _debug_airtable: airtableError });
 }
