@@ -6,9 +6,9 @@ import { getUpcomingEvents } from "@/lib/sanity";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Supper Club",
+  title: "Silsila — Supper Club",
   description:
-    "Intimate ticketed dinners by Karuna Kumar, exploring one region of India per evening. Small tables. No compromises.",
+    "Silsila is the Delhi Darling Table supper club: intimate ticketed dinners by Karuna Kumar, exploring one region of India per evening. Small tables. No compromises.",
 };
 
 export default async function SupperClubPage() {
@@ -19,17 +19,23 @@ export default async function SupperClubPage() {
       {/* Hero */}
       <section className="px-6 max-w-6xl mx-auto py-24 md:py-32">
         <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-8">
-          The Supper Club
+          The Delhi Darling Table Supper Club
         </p>
-        <h1 className="font-heading text-5xl md:text-7xl leading-[1.05] max-w-3xl mb-10">
-          An evening at
-          <br />
-          <em>the Delhi Darling Table.</em>
+        <h1 className="font-heading text-6xl md:text-8xl leading-[1.05] max-w-3xl mb-4">
+          Silsila
         </h1>
+        <p className="font-heading italic text-3xl md:text-4xl text-muted-foreground max-w-3xl mb-10">
+          An evening at the Delhi Darling Table.
+        </p>
         <p className="font-body text-base text-muted-foreground max-w-lg leading-relaxed">
           A series of intimate, ticketed dinners where each sitting explores one
           region of India — the food, the history, the people who shaped it.
           Small tables. No shortcuts.
+        </p>
+        <p className="font-body text-sm text-muted-foreground max-w-lg leading-relaxed mt-6 border-l-2 border-primary pl-4">
+          <span className="font-heading italic text-base text-foreground">Silsila</span>{" "}
+          (सिलसिला) — in Hindi and Urdu, a chain; a series that carries on. One
+          region, one evening, each dinner a link to the next.
         </p>
       </section>
 
@@ -84,7 +90,7 @@ export default async function SupperClubPage() {
           <div className="aspect-square relative overflow-hidden">
             <Image
               src="/images/supper-club-event.jpg"
-              alt="Delhi Darling Table Supper Club"
+              alt="A Silsila supper club evening by Delhi Darling Table"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -108,8 +114,8 @@ export default async function SupperClubPage() {
           <div className="border border-border p-10 text-center">
             <p className="font-heading text-2xl mb-3">Coming Soon</p>
             <p className="font-body text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed mb-8">
-              The next edition of the Delhi Darling Table supper club is being
-              planned. Join the waitlist to be notified first.
+              The next Silsila evening is being planned. Join the waitlist to
+              be notified first.
             </p>
             <Link
               href="/contact?intent=supper-club"
@@ -235,7 +241,7 @@ export default async function SupperClubPage() {
           <h2 className="font-heading text-4xl md:text-5xl mb-6">
             Seats are limited.
             <br />
-            <em>The waitlist is open.</em>
+            <em>The Silsila waitlist is open.</em>
           </h2>
           <p className="font-body text-sm text-primary-foreground/60 max-w-md mx-auto leading-relaxed mb-10">
             Leave your email and we&apos;ll be in touch when the next date is

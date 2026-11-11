@@ -105,7 +105,7 @@ export default function PopUpPage() {
             insured. Open to the public. Anyone can walk in or buy a ticket.
           </p>
           <p>
-            This is distinct from the Delhi Darling Table Supper Club, which is intimate,
+            This is distinct from Silsila, the Delhi Darling Table supper club, which is intimate,
             invitation-based, and held in private spaces. A pop-up is designed for
             visibility, volume, and proof of concept — the operational equivalent of a
             restaurant, without the long-term lease commitment.

@@ -25,7 +25,7 @@ const options: { id: Intent; label: string; placeholder: string }[] = [
   },
   {
     id: "supper-club",
-    label: "Supper club seat",
+    label: "Silsila supper club",
     placeholder: "Anything we should know? Dietary needs, preferred regions...",
   },
 ];

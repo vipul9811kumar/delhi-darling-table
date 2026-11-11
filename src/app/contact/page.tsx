@@ -18,7 +18,7 @@ const intents: { id: Intent; label: string; description: string }[] = [
   },
   {
     id: "supper-club",
-    label: "Supper Club Waitlist",
+    label: "Silsila Supper Club Waitlist",
     description: "Be notified of upcoming dinners",
   },
   {

@@ -7,7 +7,7 @@ const links = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/work", label: "Our Work" },
-  { href: "/supper-club", label: "Supper Club" },
+  { href: "/supper-club", label: "Silsila" },
   { href: "/wellness", label: "Mindful Table" },
   { href: "/press", label: "Press" },
   { href: "/contact", label: "Contact" },

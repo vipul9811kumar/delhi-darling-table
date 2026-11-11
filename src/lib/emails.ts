@@ -102,13 +102,13 @@ export function cateringThankYou(name: string): EmailPayload {
 export function supperClubThankYou(name: string): EmailPayload {
   return {
     to: "",
-    subject: "You're on the waitlist — Delhi Darling Table",
+    subject: "You're on the Silsila waitlist — Delhi Darling Table",
     html: baseTemplate(`
       ${heading(`Welcome to the table, ${gold(name)}.`)}
-      ${body("You're on the Delhi Darling Table supper club waitlist. When the next date is confirmed, you'll hear from us before the public announcement.")}
+      ${body("You're on the waitlist for Silsila, the Delhi Darling Table supper club. When the next date is confirmed, you'll hear from us before the public announcement.")}
       ${body("Each dinner is devoted to one region of India — the food, the history, the people who shaped it. Small tables. No shortcuts.")}
       ${divider()}
-      ${body(`<a href="https://delhi-darling.com/supper-club" style="color:${BRAND_COLOR};">About the supper club →</a>`)}
+      ${body(`<a href="https://delhi-darling.com/supper-club" style="color:${BRAND_COLOR};">About Silsila →</a>`)}
     `),
   };
 }
@@ -187,7 +187,7 @@ export function bookingConfirmation(
       ${body("The dinner address will be shared closer to the date. If you have any questions or need to change your booking, reply to this email.")}
       ${body("We look forward to cooking for you.")}
       ${divider()}
-      ${body(`<a href="https://delhi-darling.com/supper-club" style="color:${BRAND_COLOR};">Delhi Darling Table Supper Club →</a>`)}
+      ${body(`<a href="https://delhi-darling.com/supper-club" style="color:${BRAND_COLOR};">Silsila · Delhi Darling Table Supper Club →</a>`)}
     `),
   };
 }
@@ -208,7 +208,7 @@ export function karunaBookingNotification(data: Record<string, string>): EmailPa
     to: "",
     subject: `New booking — ${data.Event} (${data.Seats} ${data.Seats === "1" ? "seat" : "seats"})`,
     html: baseTemplate(`
-      ${heading(`New ${gold("supper club")} booking`)}
+      ${heading(`New ${gold("Silsila")} booking`)}
       ${body("A guest just completed payment on delhi-darling.com.")}
       ${divider()}
       <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #DDD5C8;">

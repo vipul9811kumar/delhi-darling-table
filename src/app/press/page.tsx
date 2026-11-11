@@ -37,8 +37,8 @@ const highlights = [
 const ctas = [
   {
     eyebrow: "Dine",
-    title: "Take a seat at the table",
-    body: "Intimate, ticketed dinners — one region of India per evening, told course by course.",
+    title: "Take a seat at Silsila",
+    body: "Our supper club: intimate, ticketed dinners — one region of India per evening, told course by course.",
     href: "/supper-club",
     label: "See upcoming dinners",
   },
@@ -297,7 +297,7 @@ export default function PressPage() {
             </p>
             <p className="font-body text-sm text-muted-foreground leading-relaxed">
               Not press? Use the same form to ask about consulting, a private
-              event or a seat at the next supper club. Karuna replies within
+              event or a seat at the next Silsila supper club. Karuna replies within
               two business days.
             </p>
           </div>

@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
 
     // 3. Send emails in parallel
     const bookingEmail = bookingConfirmation(guestName, {
-      eventTitle: eventTitle ?? "Supper Club",
+      eventTitle: eventTitle ?? "Silsila Supper Club",
       seats: seatsBooked,
       total: amountPaid,
     });

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Delhi Darling Table",
   },
   description:
-    "Delhi Darling Table is Karuna Kumar's Bay Area hospitality consultancy — restaurant concept development, menu curation, private catering, and intimate supper clubs rooted in the regional traditions of India. Serving the San Francisco Bay Area, Greater Los Angeles, and beyond.",
+    "Delhi Darling Table is Karuna Kumar's Bay Area hospitality consultancy — restaurant concept development, menu curation, private catering, and Silsila — intimate supper clubs rooted in the regional traditions of India. Serving the San Francisco Bay Area, Greater Los Angeles, and beyond.",
   metadataBase: new URL("https://delhi-darling.com"),
   openGraph: {
     siteName: "Delhi Darling Table",

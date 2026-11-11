@@ -56,9 +56,9 @@ const services = [
   {
     href: "/supper-club",
     label: "04",
-    title: "Supper Clubs",
+    title: "Silsila Supper Club",
     description:
-      "The Delhi Darling Table supper club is a series of intimate, ticketed dinners — each one devoted to a single region of India. These are not pop-ups. They are curated evenings where Karuna cooks, narrates, and eats with you. Small by design. Serious about the food.",
+      "Silsila, the Delhi Darling Table supper club, is a series of intimate, ticketed dinners — each one devoted to a single region of India. These are not pop-ups. They are curated evenings where Karuna cooks, narrates, and eats with you. Small by design. Serious about the food.",
     deliverables: [
       "Ticketed seated dinners",
       "Regional Indian focus per event",

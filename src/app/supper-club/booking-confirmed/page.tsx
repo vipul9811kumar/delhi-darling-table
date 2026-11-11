@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Booking Confirmed — Delhi Darling Table" };
+export const metadata = { title: "Booking Confirmed — Silsila Supper Club" };
 
 export default function BookingConfirmedPage() {
   return (
@@ -22,7 +22,7 @@ export default function BookingConfirmedPage() {
             href="/supper-club"
             className="font-body text-sm tracking-widest uppercase px-8 py-4 border border-border hover:bg-secondary transition-colors"
           >
-            Back to Supper Club
+            Back to Silsila
           </Link>
           <Link
             href="/"

@@ -30,7 +30,7 @@ export async function generateMetadata({
   const event = await getSupperClubEvent(slug);
   if (!event) return {};
   return {
-    title: `${event.title} — Delhi Darling Table Supper Club`,
+    title: `${event.title} — Silsila Supper Club`,
     description: event.description,
   };
 }
@@ -63,7 +63,7 @@ export default async function EventPage({
           href="/supper-club"
           className="font-body text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2 mb-12"
         >
-          ← Supper Club
+          ← Silsila Supper Club
         </Link>
         <div className="flex flex-col md:flex-row md:items-end gap-8 md:gap-16">
           <div className="md:flex-1">
@@ -188,7 +188,7 @@ export default async function EventPage({
             <div className="text-center">
               <h2 className="font-heading text-4xl mb-4">This event is sold out.</h2>
               <p className="font-body text-sm text-muted-foreground mb-8">
-                Join the waitlist to be notified about future dinners.
+                Join the Silsila waitlist to be notified about future dinners.
               </p>
               <Link
                 href="/contact?intent=supper-club"
@@ -215,7 +215,7 @@ export default async function EventPage({
       <section className="bg-foreground text-primary-foreground px-6 py-16">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center gap-8">
           <h2 className="font-heading text-3xl md:text-4xl md:flex-1">
-            More evenings are being planned.
+            More Silsila evenings are being planned.
           </h2>
           <div className="flex gap-3 shrink-0">
             <Link

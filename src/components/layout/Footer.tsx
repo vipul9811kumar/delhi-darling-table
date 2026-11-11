@@ -25,7 +25,7 @@ export default function Footer() {
                 { href: "/about", label: "About" },
                 { href: "/services", label: "Services" },
                 { href: "/work", label: "Our Work" },
-                { href: "/supper-club", label: "Supper Club" },
+                { href: "/supper-club", label: "Silsila Supper Club" },
                 { href: "/contact", label: "Contact" },
               ].map((l) => (
                 <li key={l.href}>
@@ -67,7 +67,7 @@ export default function Footer() {
                   href="/contact?intent=supper-club"
                   className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                 >
-                  Supper Club Waitlist
+                  Silsila Waitlist
                 </Link>
               </li>
               <li>

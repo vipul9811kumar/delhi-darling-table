@@ -20,9 +20,9 @@ const services = [
     href: "/services/catering",
   },
   {
-    title: "Supper Clubs",
+    title: "Silsila Supper Club",
     description:
-      "Intimate ticketed dinners exploring a single region of India. A table worth travelling for.",
+      "Silsila — intimate ticketed dinners exploring a single region of India. A table worth travelling for.",
     href: "/supper-club",
   },
   {
@@ -180,9 +180,9 @@ export default function Home() {
               The Supper Club
             </p>
             <h2 className="font-heading text-4xl md:text-5xl mb-6">
-              An intimate evening at
+              Silsila.
               <br />
-              <em>the Delhi Darling Table</em>
+              <em>An intimate evening at the Delhi Darling Table</em>
             </h2>
             <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-md">
               A series of ticketed dinners exploring one region of India per

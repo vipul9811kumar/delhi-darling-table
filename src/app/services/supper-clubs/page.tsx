@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Supper Clubs — Delhi Darling Table",
+  title: "Silsila Supper Club — Delhi Darling Table",
   description:
     "Intimate ticketed dinners by Karuna Kumar, each devoted to a single region of India. Small tables. No shortcuts. Bay Area and Los Angeles.",
 };
@@ -45,9 +45,9 @@ export default function SupperClubsServicePage() {
           Service 04
         </p>
         <h1 className="font-heading text-5xl md:text-7xl leading-[1.05] max-w-3xl mb-8">
-          The
+          Silsila
           <br />
-          <em>Supper Club</em>
+          <em>The Supper Club</em>
         </h1>
         <p className="font-body text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
           A series of intimate, ticketed dinners where each sitting explores one region
@@ -71,8 +71,8 @@ export default function SupperClubsServicePage() {
         <div className="md:col-span-2 space-y-4 font-body text-sm text-muted-foreground leading-relaxed">
           <p>
             India has twenty-eight states and dozens of distinct culinary traditions — most
-            of which have never appeared on a restaurant menu in California. The Delhi
-            Darling Table supper club exists to change that, one region at a time.
+            of which have never appeared on a restaurant menu in California. Silsila, the
+            Delhi Darling Table supper club, exists to change that, one region at a time.
           </p>
           <p>
             Each dinner is a deep dive into one tradition: the slow-cooked Awadhi kitchens
