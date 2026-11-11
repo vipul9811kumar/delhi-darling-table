@@ -9,6 +9,7 @@ const links = [
   { href: "/work", label: "Our Work" },
   { href: "/supper-club", label: "Supper Club" },
   { href: "/wellness", label: "Mindful Table" },
+  { href: "/press", label: "Press" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -17,28 +18,28 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
         <Link
           href="/"
-          className="font-heading text-xl tracking-wide text-foreground hover:text-primary transition-colors"
+          className="font-heading text-xl tracking-wide whitespace-nowrap text-foreground hover:text-primary transition-colors"
         >
           Delhi Darling Table
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-5">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
+              className="font-body text-xs xl:text-sm tracking-widest uppercase whitespace-nowrap text-muted-foreground hover:text-foreground transition-colors"
             >
               {l.label}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="font-body text-sm tracking-widest uppercase px-5 py-2 bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            className="font-body text-xs xl:text-sm tracking-widest uppercase whitespace-nowrap px-5 py-2 bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Work With Us
           </Link>
@@ -46,7 +47,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -58,7 +59,7 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background px-6 py-6 flex flex-col gap-5">
+        <div className="lg:hidden border-t border-border bg-background px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
             <Link
               key={l.href}
